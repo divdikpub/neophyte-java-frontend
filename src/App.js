@@ -16,7 +16,7 @@ export const products = [
     photo: "/img/macbook.jpg",
   },
   {
-    id: 2,
+    id: 3,
     name: "Kipas Angin",
     price: 200000,
     photo: "/img/kipas.jpg",
@@ -34,13 +34,13 @@ function App() {
   const [tema, setTema] = useState("terang");
 
   return (
-    <TemaContext.Provider value={setTema}>
+    <TemaContext.Provider value={{ tema, setTema }}>
       <div
         style={{
           background: tema === "terang" ? "#fff" : "#000",
         }}
       >
-        <Header fungsiUntukMengubahTema={setTema} />
+        <Header />
         <div
           style={{
             display: "flex",
@@ -50,6 +50,7 @@ function App() {
           {products.map(function (p) {
             return (
               <div
+                key={p.id}
                 style={{
                   background: "#ddd",
                   padding: 16,
