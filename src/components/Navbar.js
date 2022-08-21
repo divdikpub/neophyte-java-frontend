@@ -3,7 +3,7 @@ import { TemaContext } from "../App";
 import Button from "./Button";
 
 function Navbar() {
-  const { setTema, tema } = useContext(TemaContext);
+  const [tema, ubahTema] = useContext(TemaContext);
 
   return (
     <nav>
@@ -12,7 +12,7 @@ function Navbar() {
       <Button>Tentang</Button>
       <Button
         tindakanSaatDiklik={() =>
-          setTema(tema === "terang" ? "gelap" : "terang")
+          ubahTema(tema === "terang" ? "gelap" : "terang")
         }
       >
         Ubah tema

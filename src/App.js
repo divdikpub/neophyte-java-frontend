@@ -1,78 +1,53 @@
-import { createContext, useState } from "react";
-import Header from "./components/Header";
-import "./style.css";
+import { useEffect, useState } from "react";
+import "./styles.css";
 
-export const products = [
-  {
-    id: 1,
-    name: "Jaket Kulit H&M",
-    price: 700000,
-    photo: "/img/jaket.jpg",
-  },
-  {
-    id: 2,
-    name: "MacBook Pro 2023",
-    price: 30000000,
-    photo: "/img/macbook.jpg",
-  },
-  {
-    id: 3,
-    name: "Kipas Angin",
-    price: 200000,
-    photo: "/img/kipas.jpg",
-  },
-];
+export default function App() {
+  const temaAwal = localStorage.getItem("tema");
+  const [tema, setTema] = useState(temaAwal);
 
-const formatter = new Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-});
+  const [users, setUsers] = useState([]);
 
-export const TemaContext = createContext();
-
-function App() {
-  const [tema, setTema] = useState("terang");
+  useEffect(() => {
+    fetch("http://localhost:8080/user")
+      .then((response) => response.json())
+      .then((json) => setUsers(json));
+  }, []);
 
   return (
-    <TemaContext.Provider value={{ tema, setTema }}>
-      <div
-        style={{
-          background: tema === "terang" ? "#fff" : "#000",
+    <div
+      style={{
+        background: tema === "terang" ? "#fff" : "#000",
+        color: tema === "terang" ? "#000" : "#fff",
+        height: "100vh",
+      }}
+    >
+      <button
+        onClick={() => {
+          const temaBaru = tema === "terang" ? "gelap" : "terang";
+          setTema(temaBaru);
+          localStorage.setItem("tema", temaBaru);
         }}
       >
-        <Header />
-        <div
-          style={{
-            display: "flex",
-            gap: 16,
-          }}
-        >
-          {products.map(function (p) {
-            return (
-              <div
-                key={p.id}
-                style={{
-                  background: "#ddd",
-                  padding: 16,
-                  borderRadius: 16,
-                }}
-              >
-                <img src={p.photo} />
-                <h5>{p.name}</h5>
-                <h6>{formatter.format(p.price)}</h6>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </TemaContext.Provider>
+        Ubah tema
+      </button>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Nama</th>
+            <th>Kata sandi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.email}</td>
+              <td>{user.name}</td>
+              <td>{user.password}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
-
-export default App;
-
-// HOOKS
-// 1. State: useState()
-// 2. Context: useContext()
-// 3. Effect: useEffect()
-// 4. Ref: useRef()
