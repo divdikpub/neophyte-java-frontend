@@ -5,6 +5,7 @@ label {
 
 body {
   margin: 0;
+  font-family: sans-serif;
 }
 
 table {
@@ -14,4 +15,19 @@ table {
 th,
 td {
   border: 1px solid;
+}
+
+nav {
+  display: flex;
+}
+
+nav > * {
+  background: blue;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+nav > *:hover {
+  background: green;
 }

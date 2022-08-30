@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -16,6 +17,7 @@ function Users() {
           <th>Email</th>
           <th>Nama</th>
           <th>Kata sandi</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +26,9 @@ function Users() {
             <td>{user.email}</td>
             <td>{user.name}</td>
             <td>{user.password}</td>
+            <td>
+              <Link to={`/data/users/${user.id}`}>Detail</Link>
+            </td>
           </tr>
         ))}
       </tbody>

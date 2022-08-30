@@ -1,15 +1,17 @@
 import { useContext } from "react";
 import Button from "./Button";
 import { TemaContext } from "../App";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const { tema, setTema } = useContext(TemaContext);
 
   return (
     <nav>
-      <Button>Beranda</Button>
-      <Button>Dokumentasi</Button>
-      <Button>Tentang</Button>
+      <Link to="/">Beranda</Link>
+      <Link to="/data/users">Pengguna</Link>
+      <Link to="/data/products">Produk</Link>
+      <Link to="/about">Tentang</Link>
       <Button
         tindakanSaatDiklik={() =>
           setTema(tema === "terang" ? "gelap" : "terang")
