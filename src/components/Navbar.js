@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { TemaContext } from "../App";
 import Button from "./Button";
+import { TemaContext } from "../App";
 
 function Navbar() {
-  const [tema, ubahTema] = useContext(TemaContext);
+  const { tema, ubahTema } = useContext(TemaContext);
 
   return (
     <nav>
